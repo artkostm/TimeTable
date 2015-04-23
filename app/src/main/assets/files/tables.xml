@@ -1,0 +1,20 @@
+<TimeTable>
+    <AirTimeTable />
+    <AirTimeTable />
+    <AirTimeTable />
+    <AirTimeTable />
+    <AirTimeTable />
+
+    <BusTimeTable />
+    <BusTimeTable />
+    <BusTimeTable />
+    <BusTimeTable />
+    <BusTimeTable />
+
+    <TrainTimeTable />
+    <TrainTimeTable />
+    <TrainTimeTable />
+    <TrainTimeTable />
+    <TrainTimeTable />
+
+</TimeTable>
