@@ -1,20 +1,36 @@
-<TimeTable>
-    <AirTimeTable />
-    <AirTimeTable />
-    <AirTimeTable />
-    <AirTimeTable />
-    <AirTimeTable />
+<TimeTables>
+    <AirTimeTable
+        roteNumber="23"
+        dispatchDateTime="12.04.2015 15:50"
+        destination="Minsk"
+        price="600"
+        arrivalDateTime="13.04.2015 9:10"
+        airport="New York Airport"
+        destinceToCenter="20"
+        destinationAirport="Minsk-1"
+        transplantNumber="2"
+        company="Asian Airlines"
+        maxWeight="30" />
 
-    <BusTimeTable />
-    <BusTimeTable />
-    <BusTimeTable />
-    <BusTimeTable />
-    <BusTimeTable />
+    <BusTimeTable
+        roteNumber="23"
+        dispatchDateTime="12.04.2015 10:50"
+        destination="Moskow"
+        price="20"
+        arrivalDateTime="12.04.2015 19:40"
+        station="Minsk Passazhirsky"
+        platform="5"
+        destStation="Moskwa"
+        mark="Audi" />
 
-    <TrainTimeTable />
-    <TrainTimeTable />
-    <TrainTimeTable />
-    <TrainTimeTable />
-    <TrainTimeTable />
+    <TrainTimeTable
+        roteNumber="23"
+        dispatchDateTime="12.04.2015 10:50"
+        destination="Lepel"
+        price="5"
+        arrivalDateTime="12.04.2015 11:50"
+        station="Minsk Passazhirsky"
+        platform="5"
+        destStation="Lepel Molodoy" />
 
-</TimeTable>
+</TimeTables>

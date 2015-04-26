@@ -1,5 +1,7 @@
 package by.artkostm.androidparsers.core.util;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +29,9 @@ import org.xml.sax.SAXException;
 public final class DOMUtil {
     
 //    private static final Logger log = Logger.getRootLogger();
-    
+
+    static String TAG = "DOMXML";
+
     private DOMUtil() {}
     
     public static Document createDocument(){
@@ -71,6 +75,7 @@ public final class DOMUtil {
             Document doc = builder.parse(is);
 //            XsdSchemaDOMValidator.validate(doc);
             Element root = doc.getDocumentElement();
+            Log.i(TAG, "root element: " + (root == null ? "null" : root.getTagName()));
             return root;
         } catch (ParserConfigurationException | SAXException | IOException e) {
 //            log.error("Can't parse " + is.toString() + " stream", e);

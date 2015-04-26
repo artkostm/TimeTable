@@ -9,12 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import by.artkostm.androidparsers.core.ParserContextFactory;
+import by.artkostm.androidparsers.core.context.ParserContext;
 import by.artkostm.timetable.assets.FontManager;
+import by.artkostm.timetable.model.TimeTableContainer;
 import by.artkostm.timetable.notification.NotificationHelper;
 
 
-public class LoadActivity extends Activity implements View.OnClickListener{
+public class LoadActivity extends RegisterTableActivity implements View.OnClickListener{
 
     private TextView busTextView;
     private TextView airTextView;
@@ -28,6 +32,8 @@ public class LoadActivity extends Activity implements View.OnClickListener{
     public static final int BUS_TIMETABLE = 20;
     public static final int TRAIN_TIMETABLE = 30;
     public static final String TIMETABLE_TYPE = "by.artkostm.timetable.TIMETABLE_TYPE";
+
+    public static TimeTableContainer container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,13 @@ public class LoadActivity extends Activity implements View.OnClickListener{
         airIB.setOnClickListener(this);
         trainIB.setOnClickListener(this);
 
+        ParserContext context = ParserContextFactory.getInstance().getParserContext(ParserContextFactory.Type.XML, "by.artkostm.timetable");
+        ParserContext.Unmarshaller<TimeTableContainer> unmarshaller = context.getUnmarshaller();
+        try{
+            container = unmarshaller.unmarshal(this.getAssets().open("files/tables.xml"));
+        }catch (Exception e){
+            Toast.makeText(this, ""+e, Toast.LENGTH_LONG).show();
+        }
         NotificationHelper.show(this, "Choose transport type you need", R.layout.load_activity_info, 4000);
     }
 

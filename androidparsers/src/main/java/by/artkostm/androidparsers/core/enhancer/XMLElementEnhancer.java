@@ -1,5 +1,7 @@
 package by.artkostm.androidparsers.core.enhancer;
 
+import android.util.Log;
+
 import static org.reflections.ReflectionUtils.getAllFields;
 import static org.reflections.ReflectionUtils.withAnnotation;
 
@@ -7,6 +9,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
@@ -20,6 +23,8 @@ import org.w3c.dom.NodeList;
 import by.artkostm.androidparsers.core.annotations.xml.XMLElement;
 import by.artkostm.androidparsers.core.annotations.xml.XMLElements;
 import by.artkostm.androidparsers.core.builders.XMLObjectBuilder;
+import by.artkostm.androidparsers.core.util.AndroidDexUtil;
+import dalvik.system.DexFile;
 
 public class XMLElementEnhancer implements Enhancer{
     
@@ -36,6 +41,10 @@ public class XMLElementEnhancer implements Enhancer{
                                                         new TypeAnnotationsScanner()));
         
         classes = reflections.getTypesAnnotatedWith(XMLElement.class);
+        if(classes.size() == 0){
+            AndroidDexUtil.getAnnotaitedWith(XMLElement.class, pkg);
+            classes = AndroidDexUtil.registered();
+        }
     }
     
     @SuppressWarnings("rawtypes")

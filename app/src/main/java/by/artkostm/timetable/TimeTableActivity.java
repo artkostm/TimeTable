@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import by.artkostm.androidparsers.core.ParserContextFactory;
-import by.artkostm.androidparsers.core.context.ParserContext;
-import by.artkostm.timetable.model.TimeTableContainer;
+import by.artkostm.timetable.model.filter.TimeTableFilter;
 
 
 /**
@@ -15,38 +13,44 @@ import by.artkostm.timetable.model.TimeTableContainer;
  */
 public class TimeTableActivity extends Activity {
 
+    public static TimeTableFilter filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.custom_notification);
-
         Intent intent = getIntent();
         int type = intent.getIntExtra(LoadActivity.TIMETABLE_TYPE, LoadActivity.BUS_TIMETABLE);
-        ParserContext context = ParserContextFactory.getInstance().getParserContext(ParserContextFactory.Type.XML, "by.artkostm.timetable.model");
-        ParserContext.Unmarshaller<TimeTableContainer> unmarshaller = context.getUnmarshaller();
-        try{
-            TimeTableContainer container = unmarshaller.unmarshal(this.getAssets().open("files/tables.xml"));
-            Toast.makeText(this, "Size: "+container.getTables().size(), Toast.LENGTH_LONG).show();
-
-        }catch (Exception e){
-            Toast.makeText(this, "Some ERROR", Toast.LENGTH_LONG).show();
-        }
-
-//        String str = FuckaTonyMontana.sayFuck();
-//        Toast.makeText(this, "Type is " + getType(type)+"\n"+str, Toast.LENGTH_LONG).show();
+        filter = new TimeTableFilter(type, LoadActivity.container);
+        processViews(type);
+        Toast.makeText(this, "Container size: "+LoadActivity.container.getTables().size(), Toast.LENGTH_LONG).show();
     }
 
-    private String getType(int type){
+    private void processViews(int type){
         switch (type){
             case LoadActivity.AIR_TIMETABLE:
-                return "AIR_TIMETABLE";
+                processAir();
+                return;
             case LoadActivity.BUS_TIMETABLE:
-                return "BUS_TIMETABLE";
+                processBus();
+                return;
             case LoadActivity.TRAIN_TIMETABLE:
-                return "TRAIN_TIMETABLE";
+                processTrain();
+                return;
             default:
-                return "UNKNOWN";
+                setContentView(R.layout.error_settings_activity);
+                return;
         }
+    }
+
+    private void processBus() {
+        setContentView(R.layout.bus_settings_activity);
+    }
+
+    private void processAir() {
+        setContentView(R.layout.air_settings_activity);
+    }
+
+    private void processTrain() {
+        setContentView(R.layout.train_settings_activity);
     }
 }
